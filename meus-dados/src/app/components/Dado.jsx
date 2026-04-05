@@ -1,13 +1,13 @@
 "use client";
 
 export default function Dado({ valor }) {
-    function getImagem() {
-        return `/dados/dado${valor}.png`;
-    }
+    if (!valor) return <p>--</p>;
 
     return (
-        <div>
-            <img src={getImagem()} alt={`Dado ${valor}`} width={80} />
-        </div>
+        <img
+            src={`/dados/dado${valor}.png`}
+            alt={`Dado ${valor}`}
+            width={70}
+        />
     );
 }

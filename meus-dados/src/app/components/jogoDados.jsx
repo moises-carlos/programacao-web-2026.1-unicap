@@ -7,8 +7,8 @@ export default function JogoDados() {
     const [rodada, setRodada] = useState(1);
     const [jogadorAtual, setJogadorAtual] = useState(1);
 
-    const [dadosJ1, setDadosJ1] = useState([1, 1]);
-    const [dadosJ2, setDadosJ2] = useState([1, 1]);
+    const [dadosJ1, setDadosJ1] = useState([null, null]);
+    const [dadosJ2, setDadosJ2] = useState([null, null]);
 
     const [resultado, setResultado] = useState("");
     const [placar, setPlacar] = useState({ j1: 0, j2: 0 });
@@ -31,45 +31,57 @@ export default function JogoDados() {
         const soma2 = dadosJogador2[0] + dadosJogador2[1];
 
         if (soma1 > soma2) {
-            setResultado("Jogador 1 venceu a rodada");
+            setResultado("Jogador 1 ganhou a rodada");
             setPlacar(prev => ({ ...prev, j1: prev.j1 + 1 }));
         } else if (soma2 > soma1) {
-            setResultado("Jogador 2 venceu a rodada");
+            setResultado("Jogador 2 ganhou a rodada");
             setPlacar(prev => ({ ...prev, j2: prev.j2 + 1 }));
         } else {
-            setResultado("Empate!");
+            setResultado("Empate na rodada");
         }
 
-        setTimeout(() => {
-            if (rodada < 5) {
-                setRodada(rodada + 1);
+        if (rodada < 5) {
+            setTimeout(() => {
+                setRodada(prev => prev + 1);
                 setJogadorAtual(1);
-            }
-        }, 1000);
+            }, 1000);
+        } else {
+            setRodada(6); // finaliza
+        }
     }
 
     function reiniciar() {
         setRodada(1);
         setJogadorAtual(1);
-        setPlacar({ j1: 0, j2: 0 });
+        setDadosJ1([null, null]);
+        setDadosJ2([null, null]);
         setResultado("");
+        setPlacar({ j1: 0, j2: 0 });
     }
 
     const jogoFinalizado = rodada > 5;
 
     return (
-        <div>
+        <div className="container">
             <h1>🎲 Jogo de Dados</h1>
 
-            <h2>Rodada: {rodada} / 5</h2>
+            <h2>Rodada: {rodada <= 5 ? rodada : 5}/5</h2>
 
-            <h3>Jogador 1</h3>
-            <Dado valor={dadosJ1[0]} />
-            <Dado valor={dadosJ1[1]} />
+            <div className="jogador">
+                <h3>Jogador 1</h3>
+                <div className="dados">
+                    <Dado valor={dadosJ1[0]} />
+                    <Dado valor={dadosJ1[1]} />
+                </div>
+            </div>
 
-            <h3>Jogador 2</h3>
-            <Dado valor={dadosJ2[0]} />
-            <Dado valor={dadosJ2[1]} />
+            <div className="jogador">
+                <h3>Jogador 2</h3>
+                <div className="dados">
+                    <Dado valor={dadosJ2[0]} />
+                    <Dado valor={dadosJ2[1]} />
+                </div>
+            </div>
 
             <h2>{resultado}</h2>
 
@@ -82,11 +94,14 @@ export default function JogoDados() {
             {jogoFinalizado && (
                 <div>
                     <h2>🏆 Resultado Final</h2>
+
                     {placar.j1 > placar.j2 && <p>Jogador 1 venceu!</p>}
                     {placar.j2 > placar.j1 && <p>Jogador 2 venceu!</p>}
                     {placar.j1 === placar.j2 && <p>Empate geral!</p>}
 
-                    <button onClick={reiniciar}>Jogar Novamente</button>
+                    <button onClick={reiniciar}>
+                        Jogar Novamente
+                    </button>
                 </div>
             )}
         </div>
