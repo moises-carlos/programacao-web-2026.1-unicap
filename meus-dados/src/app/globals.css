@@ -1,0 +1,92 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fundo geral */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container principal */
+main {
+  background: #111827;
+  padding: 30px;
+  border-radius: 16px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Título */
+h1 {
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+/* Rodada */
+h2 {
+  margin: 10px 0;
+  font-weight: normal;
+}
+
+/* Jogadores */
+h3 {
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+/* Área dos dados */
+div > img {
+  margin: 5px;
+  transition: transform 0.2s;
+}
+
+/* Efeito ao passar mouse */
+div > img:hover {
+  transform: scale(1.1);
+}
+
+/* Botão */
+button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #22c55e;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Hover botão */
+button:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+}
+
+/* Botão desabilitado */
+button:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+/* Resultado */
+p, h2 {
+  margin-top: 10px;
+}
+
+/* Resultado final */
+h2:last-of-type {
+  font-weight: bold;
+  color: #38bdf8;
+}
